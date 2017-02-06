@@ -1,0 +1,20 @@
+#title {
+  float:left;
+  width: 50%;
+}
+
+#menu {
+  width: 50%;
+  float: right;
+}
+
+#search {
+  float:left;
+  width: 100%;
+}
+
+#recommendations {
+  float:left;
+  width: 30%;
+  border: black solid;
+}

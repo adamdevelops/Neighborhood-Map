@@ -6,18 +6,26 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="title">
 
+  <div>
+
+    <div id="title">
+        <h1>What's Going Down in ChinaTown</h1>
     </div>
 
     <div id="menu">
-
+      <a href="/">Home</a>
+      |
+      <a href="/about">About</a>
     </div>
+
+  </div>
+
+  <div>
 
     <div id="search">
       <form id="form-container" class="form-container">
-          <label for="street">Street: </label><input type="text" id="street" value="">
-          <label for="city">City: </label><input type="text" id="city" value="">
+          <input type="text" id="street" value="" placeholder="What place would you like to go to?">
           <button id="submit-btn">Submit</button>
       </form>
     </div>
@@ -33,7 +41,8 @@
 
     </div>
 
-    <hr>
+  </div>
+
 
 
     <script src="js/libs/jquery.min.js"></script>
