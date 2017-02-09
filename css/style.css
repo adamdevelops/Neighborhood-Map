@@ -8,13 +8,48 @@
   float: right;
 }
 
+#search-menu {
+  float:left;
+  width: 30%;
+  position: absolute;
+  left: 10px;
+  top: 100px;
+}
+
 #search {
   float:left;
-  width: 100%;
+  width: 30%;
 }
 
 #recommendations {
   float:left;
-  width: 30%;
+  width: 80%;
   border: black solid;
+}
+
+#map-container {
+  float:right;
+  width: 70%;
+  border: blue solid;
+}
+
+#map {
+  padding-bottom: 100%; // This is the aspect ratio
+  height: 0;
+  width: 100%;
+  float: right;
+}
+
+.google-maps {
+    position: relative;
+    padding-bottom: 75%; // This is the aspect ratio
+    height: 0;
+    overflow: hidden;
+}
+.google-maps iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
 }

@@ -21,31 +21,33 @@
 
   </div>
 
-  <div>
+  <div id="search-menu">
 
     <div id="search">
       <form id="form-container" class="form-container">
-          <input type="text" id="street" value="" placeholder="What place would you like to go to?">
+          <input type="text" id="search" value="" placeholder="What place would you like to go to?">
           <button id="submit-btn">Submit</button>
       </form>
     </div>
 
     <div id="recommendations">
 
-
-
-    </div>
-
-    <div id="map">
-
+      recommendations area
 
     </div>
 
   </div>
 
+  <div id="map-container">
+    <div id="map">
+      It seems Google Maps has ran into an error. Please try again.
+    </div>
 
+  </div>
 
+    <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/script.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB546Pycrc06vZqoIGDedMeU8qxbKHgDu8&callback=initMap"></script>
 </body>
 </html>
