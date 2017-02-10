@@ -36,10 +36,12 @@ var initialMarkers_length = initialMarkers.length;
 
 var markers = [];
 
+var marker;
+
 function initMap() {
   var uluru = {lat: 40.715272, lng: -73.9974404}; //Location on China Town
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 16,
+    zoom: 18,
     center: uluru
   });
 
@@ -47,22 +49,49 @@ function initMap() {
     markers[i] = new google.maps.Marker({ //Bubbly Tea
       position: {lat: initialMarkers[i].lat, lng: initialMarkers[i].lng},
       animation: google.maps.Animation.DROP,
-      map: map
+      map: map,
+      id: i
     });
 
-    markers[i].addListener('click', toggleBounce(markers[i]));
+    initialMarkers
+
+
+    console.log(markers[i].id);
+    marker = markers[i];
+
+    markers[i].addListener('click', toggleBounce);
+
+
+    // google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    //   console.log(marker.getAnimation());
+    //     if (marker.getAnimation() !== null) {
+    //       marker.setAnimation(null);
+    //     } else {
+    //       marker.setAnimation(google.maps.Animation.BOUNCE);
+    //     }
+    //   })(marker, i));
   }
 
 }
 
 //Toggle the bounce animation for selected marker
-function toggleBounce(marker) {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
+function toggleBounce() {
+        if (this.getAnimation() !== null) {
+          this.setAnimation(null);
         } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
+          this.setAnimation(google.maps.Animation.BOUNCE);
         }
       }
+//Toggle the bounce animation for selected marker
+function toggleListBounce() {
+        if (this.getAnimation() !== null) {
+            this.setAnimation(null);
+        } else {
+            this.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+
+
 
 // google.maps.event.addDomListener(window, 'load', initialize);
 // google.maps.event.addDomListener(window, "resize", function() {
@@ -77,6 +106,7 @@ function toggleBounce(marker) {
     this.title = ko.observable(data.title);
     this.lat = ko.observable(data.lat);
     this.lng = ko.observable(data.lng);
+    this.id = ko.observable(data.id);
 
   }
 
@@ -89,10 +119,19 @@ function toggleBounce(marker) {
     //KnockOut array of list of recommended locations
     this.locationsList = ko.observableArray([]);
 
+    this.currentLocation = ko.observable();
+
     //Add initial marker locations
     initialMarkers.forEach(function(locationItem){
       self.locationsList.push( new Location(locationItem) );
   });
+
+  // //Animate marker when location is selected
+  // this.selectedLocation = function(clickedLocation.marker){
+  //   console.log(clickedLocation);
+  //   self.currentLocation(clickedLocation.marker);
+  //   toggleListBounce(self.currentLocation);
+  // };
 
   };
 

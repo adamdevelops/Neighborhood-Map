@@ -1,16 +1,27 @@
+#header{
+  width: 100%;
+}
+
 #title {
   float:left;
-  width: 50%;
+  width: 70%;
 }
 
 #menu {
-  width: 50%;
+  padding-top: 20px;
   float: right;
+  width: 30%;
+  text-align: right;
 }
+
+#app {
+  width: 100%;
+}
+
 
 #search-menu {
   float:left;
-  width: 30%;
+  width: 35%;
   position: absolute;
   left: 10px;
   top: 100px;
@@ -18,18 +29,19 @@
 
 #search {
   float:left;
-  width: 30%;
+  /*width: 30%;*/
 }
 
 #recommendations {
   float:left;
-  width: 80%;
+  /*width: 80%;*/
   border: black solid;
+  padding: 10px;
 }
 
 #map-container {
   float:right;
-  width: 70%;
+  width: 65%;
   border: blue solid;
 }
 

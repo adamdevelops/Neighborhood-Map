@@ -7,47 +7,52 @@
 </head>
 <body>
 
-  <div>
+  <div id="header">
 
     <div id="title">
         <h1>What's Going Down in ChinaTown</h1>
     </div>
 
     <div id="menu">
-      <a href="/">Home</a>
+      <a href="#">Home</a>
       |
-      <a href="/about">About</a>
+      <a href="#">About</a>
     </div>
 
   </div>
 
-  <div id="search-menu">
+  <div id="app">
+    <div id="search-menu">
 
-    <div id="search">
-      <form id="form-container" class="form-container">
-          <input type="text" data-bind="value: location" placeholder="What place would you like to go to?">
-          <button id="submit-btn">Submit</button>
-      </form>
+      <div id="search">
+        <form id="form-container" class="form-container">
+            <input type="text" placeholder="What place would you like to go to?">
+            <button id="submit-btn" type="submit">Submit</button>
+        </form>
+      </div>
+
+      <br>
+      <br>
+
+      <div id="recommendations">
+
+        recommendations area
+
+        <ul data-bind="foreach: locationsList">
+          <li data-bind="text: $data.title, click: $parent.selectedLocation"></li>
+        </ul>
+
+      </div>
+
     </div>
 
-    <div id="recommendations">
-
-      recommendations area
-
-      <ul data-bind="foreach: locationsList">
-        <li data-bind="text: $data.title"></li>
-      </ul>
+    <div id="map-container">
+      <div id="map">
+        It seems Google Maps has ran into an error. Please try again.
+      </div>
 
     </div>
-
-  </div>
-
-  <div id="map-container">
-    <div id="map">
-      It seems Google Maps has ran into an error. Please try again.
-    </div>
-
-  </div>
+</div>
 
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/libs/jquery.min.js"></script>
