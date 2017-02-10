@@ -35,6 +35,7 @@ var initialMarkers = [
 var initialMarkers_length = initialMarkers.length;
 
 var markers = [];
+var markers_infowindow = [];
 
 var marker;
 
@@ -50,16 +51,19 @@ function initMap() {
       position: {lat: initialMarkers[i].lat, lng: initialMarkers[i].lng},
       animation: google.maps.Animation.DROP,
       map: map,
+      title: initialMarkers[i].title,
       id: i
     });
 
-    initialMarkers
+    markers_infowindow[i] = new google.maps.InfoWindow({
+              content: initialMarkers[i].title,
+            });
 
 
-    console.log(markers[i].id);
+    console.log(markers[i].title);
     marker = markers[i];
 
-    markers[i].addListener('click', toggleBounce);
+    marker.addListener('click', toggleBounceInfoWindow);
 
 
     // google.maps.event.addListener(marker, 'click', (function(marker, i) {
@@ -74,16 +78,20 @@ function initMap() {
 
 }
 
+
 //Toggle the bounce animation for selected marker
-function toggleBounce() {
+function toggleBounceInfoWindow() {
         if (this.getAnimation() !== null) {
           this.setAnimation(null);
         } else {
           this.setAnimation(google.maps.Animation.BOUNCE);
+          markers_infowindow[this.id].open(map, this);
         }
       }
+
+
 //Toggle the bounce animation for selected marker
-function toggleListBounce() {
+function toggleinfoWindow() {
         if (this.getAnimation() !== null) {
             this.setAnimation(null);
         } else {
@@ -126,12 +134,11 @@ function toggleListBounce() {
       self.locationsList.push( new Location(locationItem) );
   });
 
-  // //Animate marker when location is selected
-  // this.selectedLocation = function(clickedLocation.marker){
-  //   console.log(clickedLocation);
-  //   self.currentLocation(clickedLocation.marker);
-  //   toggleListBounce(self.currentLocation);
-  // };
+  //Animate marker when location is selected
+  this.selectedLocation = function(clickedLocation){
+
+    console.log(this);
+  };
 
   };
 
