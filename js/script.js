@@ -1,33 +1,33 @@
 var initialMarkers = [
     {
-    title: "Bubbly Tea",
-    lat: 40.7152875,
-    lng: -73.9977593
+      title: "Bubbly Tea",
+      lat: 40.7152875,
+      lng: -73.9977593
     },
     {
-    title: "Confucius Plaza",
-    lat: 40.7158642,
-    lng: -73.9954891
+      title: "Confucius Plaza",
+      lat: 40.7158642,
+      lng: -73.9954891
     },
     {
-    title: "Nom Wah Tea Palor",
-    lat: 40.7144448,
-    lng: -73.9982542
+      title: "Nom Wah Tea Palor",
+      lat: 40.7144448,
+      lng: -73.9982542
     },
     {
-    title: "Great NY Noodle Town",
-    lat: 40.7150319,
-    lng: -73.997038
+      title: "Great NY Noodle Town",
+      lat: 40.7150319,
+      lng: -73.997038
     },
     {
-    title: "Golden Fung Wong Bakery Shop",
-    lat: 40.7151294,
-    lng: -73.9988711
+      title: "Golden Fung Wong Bakery Shop",
+      lat: 40.7151294,
+      lng: -73.9988711
     },
     {
-    title: "Noodle Village",
-    lat: 40.7141342,
-    lng: -73.9989576
+      title: "Noodle Village",
+      lat: 40.7141342,
+      lng: -73.9989576
     }
 
 ];
@@ -53,24 +53,6 @@ function initMap() {
     markers[i].addListener('click', toggleBounce(markers[i]));
   }
 
-
-  // var marker2 = new google.maps.Marker({ //Confucius Plaza
-  //   position: {lat: 40.7158642, lng: -73.9954891},
-  //   map: map
-  // });
-  // var marker3 = new google.maps.Marker({ //Nom Wah Tea Palor
-  //   position: {lat: 40.7144448, lng: -73.9982542},
-  //   map: map
-  // });
-  // var marker4 = new google.maps.Marker({ //Great NY Noodle Town
-  //   position: {lat: 40.7150319, lng: -73.997038},
-  //   map: map
-  // });
-  // var marker5 = new google.maps.Marker({ //Golden Fung Wong Bakery Shop
-  //   position: {lat: 40.7151294, lng: -73.9988711},
-  //   map: map
-  // });
-
 }
 
 //Toggle the bounce animation for selected marker
@@ -91,27 +73,27 @@ function toggleBounce(marker) {
 
 
 
-  // var Location = function(data){
-  //   this.title = ko.observable(data.title);
-  //   this.lat = ko.observable(data.lat);
-  //   this.lng = ko.observable(data.lng);
-  //
-  // }
+  var Location = function(data){
+    this.title = ko.observable(data.title);
+    this.lat = ko.observable(data.lat);
+    this.lng = ko.observable(data.lng);
+
+  }
 
 
 
 
-  // var ViewModel = function(){
-  //   var self = this;    //--- referencing the ViewModel itself, thus the outer this outside of the div of where we applied the 'with data-bind'
-  //
-  //   //KnockOut array of list of recommended locations
-  //   this.locationsList = ko.observableArray([]);
-  //
-  //   //Add initial marker locations
-  //   initialMarkers.forEach(function(locationItem){
-  //     self.locationsList.push( new Location(locationItem) );
-  // });
-  //
-  // };
-  //
-  // ko.applyBindings(new ViewModel());
+  var ViewModel = function(){
+    var self = this;    //--- referencing the ViewModel itself, thus the outer this outside of the div of where we applied the 'with data-bind'
+
+    //KnockOut array of list of recommended locations
+    this.locationsList = ko.observableArray([]);
+
+    //Add initial marker locations
+    initialMarkers.forEach(function(locationItem){
+      self.locationsList.push( new Location(locationItem) );
+  });
+
+  };
+
+  ko.applyBindings(new ViewModel());

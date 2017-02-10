@@ -25,7 +25,7 @@
 
     <div id="search">
       <form id="form-container" class="form-container">
-          <input type="text" id="search" value="" placeholder="What place would you like to go to?">
+          <input type="text" data-bind="value: location" placeholder="What place would you like to go to?">
           <button id="submit-btn">Submit</button>
       </form>
     </div>
@@ -33,6 +33,10 @@
     <div id="recommendations">
 
       recommendations area
+
+      <ul data-bind="foreach: locationsList">
+        <li data-bind="text: $data.title"></li>
+      </ul>
 
     </div>
 
