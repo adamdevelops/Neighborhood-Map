@@ -1,31 +1,37 @@
 var initialMarkers = [
     {
       title: "Bubbly Tea",
+      type: "Tea",
       lat: 40.7152875,
       lng: -73.9977593
     },
     {
       title: "Confucius Plaza",
+      type: "Sight-seeing",
       lat: 40.7158642,
       lng: -73.9954891
     },
     {
       title: "Nom Wah Tea Palor",
+      type: "Tea",
       lat: 40.7144448,
       lng: -73.9982542
     },
     {
       title: "Great NY Noodle Town",
+      type: "Noodles",
       lat: 40.7150319,
       lng: -73.997038
     },
     {
       title: "Golden Fung Wong Bakery Shop",
+      type: "Bakery",
       lat: 40.7151294,
       lng: -73.9988711
     },
     {
       title: "Noodle Village",
+      type: "Noodles",
       lat: 40.7141342,
       lng: -73.9989576
     }
@@ -40,6 +46,8 @@ var markers_infowindow = [];
 var marker;
 
 function initMap() {
+  console.log("Entering initMap");
+
   var uluru = {lat: 40.715272, lng: -73.9974404}; //Location on China Town
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 18,
@@ -65,16 +73,16 @@ function initMap() {
 
     marker.addListener('click', toggleBounceInfoWindow);
 
+    console.log(initialMarkers[i]);
+    console.log("end of markers");
 
-    // google.maps.event.addListener(marker, 'click', (function(marker, i) {
-    //   console.log(marker.getAnimation());
-    //     if (marker.getAnimation() !== null) {
-    //       marker.setAnimation(null);
-    //     } else {
-    //       marker.setAnimation(google.maps.Animation.BOUNCE);
-    //     }
-    //   })(marker, i));
+    console.log(markers[i]);
+    this.locationsList.marker = markers[i];
+
+
   }
+
+  console.log("Exiting initMap");
 
 }
 
@@ -83,9 +91,10 @@ function initMap() {
 function toggleBounceInfoWindow() {
         if (this.getAnimation() !== null) {
           this.setAnimation(null);
+          markers_infowindow[this.id].close(map, this); //Close the info window for the according marker
         } else {
-          this.setAnimation(google.maps.Animation.BOUNCE);
-          markers_infowindow[this.id].open(map, this);
+          this.setAnimation(google.maps.Animation.BOUNCE); //Set markers animation to bounce
+          markers_infowindow[this.id].open(map, this); //Open the info window for the according marker
         }
       }
 
@@ -110,35 +119,54 @@ function toggleinfoWindow() {
 
 
 
-  var Location = function(data){
-    this.title = ko.observable(data.title);
-    this.lat = ko.observable(data.lat);
-    this.lng = ko.observable(data.lng);
-    this.id = ko.observable(data.id);
-
-  }
+// var Location = function(data){
+//   this.title = ko.observable(data.title);
+//   this.lat = ko.observable(data.lat);
+//   this.lng = ko.observable(data.lng);
+//   this.id = ko.observable(data.id);
+//
+// }
 
 
 
 
   var ViewModel = function(){
+    console.log("Entering ViewModel");
+
     var self = this;    //--- referencing the ViewModel itself, thus the outer this outside of the div of where we applied the 'with data-bind'
 
     //KnockOut array of list of recommended locations
     this.locationsList = ko.observableArray([]);
 
-    this.currentLocation = ko.observable();
+    console.log(markers);
+
 
     //Add initial marker locations
-    initialMarkers.forEach(function(locationItem){
-      self.locationsList.push( new Location(locationItem) );
-  });
+    initialMarkers.forEach(function(locationItem, i){
+      //console.log(locationItem);
+      self.locationsList.push(locationItem);
+      //console.log(self.locationsList());
+    });
 
-  //Animate marker when location is selected
-  this.selectedLocation = function(clickedLocation){
 
-    console.log(this);
-  };
+    //Testing to see content of locationsList observableArray
+    console.log(this.locationsList()[1]);
+
+    this.currentLocation = ko.observable(this.locationsList()[0]);
+    //console.log(this.currentLocation);
+
+
+    console.log(this.locationsList()[1]);
+
+
+    //Animate marker when location is selected
+    this.selectedLocation = function(clickedLocation){
+
+      console.log(this);
+    };
+
+    console.log("Exiting ViewModel");
+
 
   };
 
