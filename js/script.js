@@ -76,11 +76,11 @@ function initMap() {
     console.log(initialMarkers[i]);
     console.log("end of markers");
 
-    console.log(markers[i]);
-    this.locationsList.marker = markers[i];
-
 
   }
+
+  var vm = new ViewModel();
+  ko.applyBindings(vm);
 
   console.log("Exiting initMap");
 
@@ -148,26 +148,38 @@ function toggleinfoWindow() {
       //console.log(self.locationsList());
     });
 
-
     //Testing to see content of locationsList observableArray
+    console.log("index 1 without marker");
     console.log(this.locationsList()[1]);
 
     this.currentLocation = ko.observable(this.locationsList()[0]);
-    //console.log(this.currentLocation);
 
+    for (i = 0; i < initialMarkers_length; i++){
+      this.locationsList()[i].marker = markers[i];
+    };
 
+    console.log("index 1 with marker");
     console.log(this.locationsList()[1]);
 
 
     //Animate marker when location is selected
     this.selectedLocation = function(clickedLocation){
+      for (i = 0; i < initialMarkers_length; i++){
+        var location_title = self.locationsList()[i].title;
+        if (clickedLocation.title == location_title){
+          this.currentLocation = self.locationsList()[i];
+        }
+      };
+      console.log("currentLocation");
+      console.log(this.currentLocation.marker);
+      //Set selected location marker animation to Bounce and open up the InfoWindow
+      //this.currentLocation.marker.setAnimation(google.maps.Animation.BOUNCE);
+      this.marker.setAnimation(google.maps.Animation.BOUNCE);
+      markers_infowindow[this.marker.id].open(map, this.marker);
 
-      console.log(this);
     };
 
     console.log("Exiting ViewModel");
 
 
   };
-
-  ko.applyBindings(new ViewModel());
