@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <title>Downtown in ChinaTown</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -26,8 +27,7 @@
 
       <div id="search">
         <form id="form-container" class="form-container">
-            <input type="text" placeholder="What place would you like to go to?">
-            <button id="submit-btn" type="submit">Submit</button>
+            <p>Filter: <input data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" /></p>
         </form>
       </div>
 
@@ -38,7 +38,7 @@
 
         recommendations area
 
-        <ul data-bind="foreach: locationsList">
+        <ul data-bind="foreach: filteredLocations">
           <li data-bind="text: $data.title, click: $parent.selectedLocation"></li>
         </ul>
 

@@ -1,37 +1,37 @@
 var initialMarkers = [
     {
       title: "Bubbly Tea",
-      type: "Tea",
+      type: "tea",
       lat: 40.7152875,
       lng: -73.9977593
     },
     {
       title: "Confucius Plaza",
-      type: "Sight-seeing",
+      type: "sight seeing",
       lat: 40.7158642,
       lng: -73.9954891
     },
     {
       title: "Nom Wah Tea Palor",
-      type: "Tea",
+      type: "tea",
       lat: 40.7144448,
       lng: -73.9982542
     },
     {
       title: "Great NY Noodle Town",
-      type: "Noodles",
+      type: "noodles",
       lat: 40.7150319,
       lng: -73.997038
     },
     {
       title: "Golden Fung Wong Bakery Shop",
-      type: "Bakery",
+      type: "bakery",
       lat: 40.7151294,
       lng: -73.9988711
     },
     {
       title: "Noodle Village",
-      type: "Noodles",
+      type: "noodles",
       lat: 40.7141342,
       lng: -73.9989576
     }
@@ -138,6 +138,8 @@ function toggleinfoWindow() {
     //KnockOut array of list of recommended locations
     this.locationsList = ko.observableArray([]);
 
+    this.searchTerm = ko.observable("");
+
     console.log(markers);
 
 
@@ -151,9 +153,10 @@ function toggleinfoWindow() {
     //Testing to see content of locationsList observableArray
     console.log("index 1 without marker");
     console.log(this.locationsList()[1]);
-
+    //Set default currentLocation to first location in the array
     this.currentLocation = ko.observable(this.locationsList()[0]);
 
+    //Store the Google Map markers for each location as a property for each location
     for (i = 0; i < initialMarkers_length; i++){
       this.locationsList()[i].marker = markers[i];
     };
@@ -178,6 +181,31 @@ function toggleinfoWindow() {
       markers_infowindow[this.marker.id].open(map, this.marker);
 
     };
+
+    //Filter for recommendations locations based on the input field's text
+    this.filteredLocations = ko.computed(function() {
+    var filter = self.searchTerm().toLowerCase();
+    if (!filter) { //No searchTerm is entered into the input field
+      self.locationsList().forEach(function(location){
+				location.marker.setVisible(true);
+      });
+      return self.locationsList();
+    } else {
+        return ko.utils.arrayFilter(self.locationsList(), function(location) {
+          if (location.type.toLowerCase().indexOf(filter) > -1){  //searchTerm of location found
+            location.marker.setVisible(true); //Show the marker
+            return true; //Make that location visible in the recommendations list
+          } else { //searchTerm of location is not found
+            location.marker.setVisible(false); //Hide the marker
+            return false; //Make that location invisible in the recommendations list
+          }
+            });
+        }
+    }, self);
+
+
+    // console.log("locationsList:");
+    // console.log(this.locationsList());
 
     console.log("Exiting ViewModel");
 
