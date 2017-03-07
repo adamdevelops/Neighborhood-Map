@@ -2,35 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Downtown in ChinaTown</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
   <div id="header">
-
     <div id="title">
         <h1>What's Going Down in ChinaTown</h1>
-    </div>
-
-    <div id="menu">
-      <a href="#">Home</a>
-      |
-      <a href="#">About</a>
-    </div>
-
+      </div>
   </div>
 
-  <div id="app">
+<div id="app">
+
+
     <div id="search-menu">
+
+      <div id="weather-app">
+        <div id="forecast">
+
+        </div>
+      </div>
 
       <div id="search">
         <form id="form-container" class="form-container">
-            <p>Filter: <input data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" /></p>
+            <p>Type: <input data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" /></p>
         </form>
       </div>
 
+      <br>
       <br>
       <br>
 
@@ -44,7 +45,10 @@
 
       </div>
 
-    </div>
+
+      </div>
+
+  </div>
 
     <div id="map-container">
       <div id="map">
@@ -56,7 +60,8 @@
 
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/libs/jquery.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script.js"></script> <!--"http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b"-->
+    <script src="http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b&callback=initWeatherAPI"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB546Pycrc06vZqoIGDedMeU8qxbKHgDu8&callback=initMap"></script>
 </body>
 </html>

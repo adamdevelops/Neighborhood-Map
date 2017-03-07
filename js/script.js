@@ -1,3 +1,18 @@
+
+// //Open the drawer when the menu ison is clicked.
+// var menu = document.querySelector('#search-menu');
+// var main = document.querySelector('main');
+// var drawer = document.querySelector('#drawer');
+//
+// menu.addEventListener('click', function(e) {
+//     drawer.classList.toggle('open');
+//     e.stopPropagation();
+// });
+// main.addEventListener('click', function() {
+//     drawer.classList.remove('open');
+// });
+
+
 var initialMarkers = [
     {
       title: "Bubbly Tea",
@@ -37,6 +52,41 @@ var initialMarkers = [
     }
 
 ];
+
+function initWeatherAPI() {
+  console.log("Entering initWeatherAPI");
+
+  $(document).ready(function() {
+
+    //var $currentWeather = $('#weather');
+
+    $.ajax({
+      url: "http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b&units=metric",
+      type: "GET",
+      dataType: "jsonp",
+      success: function(data) {
+        console.log(data);
+        console.log(data.weather[0].main);
+        console.log(data.weather[0].main);
+        temp = Math.trunc(((data.main.temp * 9)/5) + 32);
+
+        $( "#forecast" ).html( "<div id='temp_display'>"
+        +"<img id='icon' src ='http://openweathermap.org/img/w/"+data.weather[0].icon+".png'><div id='temp'>"+temp+"&deg;</div></div><div id='weather-title'><p>"+data.weather[0].description
+        +"</p></div>");
+
+      },
+      error: function() {
+
+        console.log("Error accessing API");
+        $( "#forecast" ).html("Error accessing API");
+
+      }
+
+      });
+  });
+
+  console.log("Exiting initWeatherAPI");
+}
 
 var initialMarkers_length = initialMarkers.length;
 
@@ -109,16 +159,6 @@ function toggleinfoWindow() {
       }
 
 
-
-// google.maps.event.addDomListener(window, 'load', initialize);
-// google.maps.event.addDomListener(window, "resize", function() {
-//     var center = map.getCenter();
-//     google.maps.event.trigger(map, "resize");
-//     map.setCenter(center);
-//   });
-
-
-
 // var Location = function(data){
 //   this.title = ko.observable(data.title);
 //   this.lat = ko.observable(data.lat);
@@ -126,9 +166,6 @@ function toggleinfoWindow() {
 //   this.id = ko.observable(data.id);
 //
 // }
-
-
-
 
   var ViewModel = function(){
     console.log("Entering ViewModel");
