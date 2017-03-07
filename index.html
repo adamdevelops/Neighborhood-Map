@@ -14,15 +14,10 @@
       </div>
   </div>
 
-<div id="app">
-
-
-    <div id="search-menu">
-
+<div id="app" class="row">
+  <div id="search-menu" class="col-md-4">
       <div id="weather-app">
-        <div id="forecast">
-
-        </div>
+        <div id="forecast"> </div>
       </div>
 
       <div id="search">
@@ -42,22 +37,20 @@
         <ul data-bind="foreach: filteredLocations">
           <li data-bind="text: $data.title, click: $parent.selectedLocation"></li>
         </ul>
-
-      </div>
-
-
       </div>
 
   </div>
 
-    <div id="map-container">
+
+    <div id="map-container" class="col-md-8">
       <div id="map">
         It seems Google Maps has ran into an error. Please try again.
       </div>
-
     </div>
+
 </div>
 
+    <script src="js/libs/bootstrap.min.js"></script>
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/script.js"></script> <!--"http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b"-->

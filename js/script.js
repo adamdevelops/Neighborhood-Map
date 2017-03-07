@@ -53,6 +53,7 @@ var initialMarkers = [
 
 ];
 
+// Code for OpenWeather API
 function initWeatherAPI() {
   console.log("Entering initWeatherAPI");
 
@@ -72,7 +73,7 @@ function initWeatherAPI() {
 
         $( "#forecast" ).html( "<div id='temp_display'>"
         +"<img id='icon' src ='http://openweathermap.org/img/w/"+data.weather[0].icon+".png'><div id='temp'>"+temp+"&deg;</div></div><div id='weather-title'><p>"+data.weather[0].description
-        +"</p></div>");
+        +"</p></div><div id='api-credit'>powered by OpenWeatherAPI</div>");
 
       },
       error: function() {
@@ -88,6 +89,8 @@ function initWeatherAPI() {
   console.log("Exiting initWeatherAPI");
 }
 
+
+// Code for Google Maps API
 var initialMarkers_length = initialMarkers.length;
 
 var markers = [];
@@ -167,7 +170,9 @@ function toggleinfoWindow() {
 //
 // }
 
-  var ViewModel = function(){
+
+// Code for the ViewModel
+var ViewModel = function(){
     console.log("Entering ViewModel");
 
     var self = this;    //--- referencing the ViewModel itself, thus the outer this outside of the div of where we applied the 'with data-bind'
@@ -247,4 +252,4 @@ function toggleinfoWindow() {
     console.log("Exiting ViewModel");
 
 
-  };
+};

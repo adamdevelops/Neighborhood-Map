@@ -24,18 +24,9 @@ nav.open {
     height: 160px;
     border: 1px solid black;
     border-radius: 20px;
-    box-shadow: 10px 10px 50px #888888;
     overflow: hidden;
     text-align:center;
     font-family: "Mono";
-}
-
-#search-menu {
-  float:left;
-  width: 35%;
-  position: absolute;
-  left: 10px;
-  top: 100px;
 }
 
 #header{
@@ -56,11 +47,32 @@ nav.open {
 }
 
 #app {
-  width: 30%;
+  width: 100%;
   height: 100%;
-  position: relative;
 }
 
+#map-container {
+  float:right;
+  width: 63%;
+  height: 100%;
+  border: blue solid;
+}
+
+#map {
+  padding-bottom: 80%; /* This is the aspect ratio */
+  width: 100%;
+  float: right;
+}
+
+#search-menu {
+  float:left;
+  width: 35%;
+  height: 100%;
+  position: fixed;
+  left: 10px;
+  border-radius: 20px;
+  border: black solid;
+}
 
 #search {
   float:left;
@@ -74,19 +86,6 @@ nav.open {
   padding: 10px;
 }
 
-#map-container {
-  float:right;
-  width: 65%;
-  height: 100%;
-  border: blue solid;
-}
-
-#map {
-  padding-bottom: 100%; /* This is the aspect ratio */
-  height: 100%;
-  width: 100%;
-  float: right;
-}
 
 /* Weather API Styling*/
 #weather {
@@ -97,7 +96,7 @@ nav.open {
 }
 
 #weather-app {
-    margin: auto;
+    margin-right: 100px;
     width: 165px;
     height: 150px;
     border: 1px solid black;
@@ -144,6 +143,10 @@ nav.open {
   margin: 0;
   padding: 0;
   text-transform: capitalize;
+}
+
+#api-credit{
+  font-size: 10px;
 }
 
 
