@@ -195,6 +195,7 @@ var ViewModel = function(){
     //Testing to see content of locationsList observableArray
     console.log("index 1 without marker");
     console.log(this.locationsList()[1]);
+
     //Set default currentLocation to first location in the array
     this.currentLocation = ko.observable(this.locationsList()[0]);
 
@@ -217,10 +218,17 @@ var ViewModel = function(){
       };
       console.log("currentLocation");
       console.log(this.currentLocation.marker);
+
       //Set selected location marker animation to Bounce and open up the InfoWindow
       //this.currentLocation.marker.setAnimation(google.maps.Animation.BOUNCE);
-      this.marker.setAnimation(google.maps.Animation.BOUNCE);
-      markers_infowindow[this.marker.id].open(map, this.marker);
+      //Close the infoWindow and disable bounce animation if selected location is clicked on again.
+      if (this.marker.getAnimation() !== null) {
+          this.marker.setAnimation(null);
+          markers_infowindow[this.marker.id].close(map, this); //Close the info window for the according marker
+      } else {
+          this.marker.setAnimation(google.maps.Animation.BOUNCE);
+          markers_infowindow[this.marker.id].open(map, this.marker);
+      }
 
     };
 
@@ -248,6 +256,22 @@ var ViewModel = function(){
 
     // console.log("locationsList:");
     // console.log(this.locationsList());
+
+    /*
+     * Open the drawer when the menu ison is clicked.
+     */
+    var menu = document.querySelector('#menu');
+    var app = document.querySelector('#app');
+    var drawer = document.querySelector('#search-menu');
+
+    menu.addEventListener('click', function(e) {
+      drawer.classList.toggle('open');
+      e.stopPropagation();
+    });
+    app.addEventListener('click', function() {
+      drawer.classList.remove('open');
+    });
+
 
     console.log("Exiting ViewModel");
 

@@ -8,14 +8,22 @@
 </head>
 <body>
 
+<div id="app" class="row">
+
+
   <div id="header">
+    <a id="menu">
+      <div id="menu_icon"></div>
+      <div id="menu_icon"></div>
+      <div id="menu_icon"></div>
+    </a>
+
     <div id="title">
         <h1>What's Going Down in ChinaTown</h1>
       </div>
   </div>
 
-<div id="app" class="row">
-  <div id="search-menu" class="col-md-4">
+  <nav id="search-menu" class="col-md-4">
       <div id="weather-app">
         <div id="forecast"> </div>
       </div>
@@ -39,7 +47,7 @@
         </ul>
       </div>
 
-  </div>
+  </nav>
 
 
     <div id="map-container" class="col-md-8">
@@ -50,11 +58,11 @@
 
 </div>
 
-    <script src="js/libs/bootstrap.min.js"></script>
+    <!-- <script src="js/libs/bootstrap.min.js"></script> -->
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/script.js"></script> <!--"http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b"-->
-    <script src="http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b&callback=initWeatherAPI"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB546Pycrc06vZqoIGDedMeU8qxbKHgDu8&callback=initMap"></script>
+    <script src="http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b&callback=initWeatherAPI"></script>
 </body>
 </html>
