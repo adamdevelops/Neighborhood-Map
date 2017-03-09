@@ -32,36 +32,6 @@ nav.open {
     margin: 6px 0;
 }
 
-/* If there is enough space (> 600px), we keep the drawer open all the time. */
-@media (min-width: 600px) {
-
-  /* We open the drawer. */
-  nav {
-    position:relative;
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
-  }
-
-  /* We use Flexbox on the parent. */
-  body {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row nowrap;
-    flex-flow: row nowrap;
-  }
-
-  #map-container{
-    width: 100%;
-    position: fixed;
-  }
-
-  #app {
-    width: auto;
-    /* Flex-grow streches the main content to fill all available space. */
-    flex-grow: 1;
-  }
-}
-
 .weather-app {
     margin: auto;
     width: 300px;
@@ -91,7 +61,7 @@ nav.open {
 
 #map-container {
   float:right;
-  width: auto;
+  width: 100%;
   border: blue solid;
 }
 
