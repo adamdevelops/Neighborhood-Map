@@ -1,7 +1,50 @@
 html, body, #app{
   height: 100%;
   width: 100%;
-  background-color: #A9A9A9;
+  background-color: #bfbfbf;
+}
+
+@media (max-width: 750px) {
+
+  nav {
+    width: 300px;
+    height: 100%;
+    position: absolute;
+    /* This trasform moves the drawer off canvas. */
+    -webkit-transform: translate(-600px, 0);
+    transform: translate(-600px, 0);
+    /* Optionally, we animate the drawer. */
+    transition: transform 0.3s ease;
+  }
+
+  #search-menu {
+    float:left;
+    width: 300px;
+    z-index: 2;
+    position: absolute;
+    left: 10px;
+    border-radius: 20px;
+    border: #828282 solid;
+    background-color: rgba(145, 145, 145, 0.86);
+    color: #ededed;
+  }
+
+  #recommendations {
+    float:left;
+    /*width: 80%;*/
+    /*border: black solid;*/
+    font-size: 5px;
+    margin: 0;
+  }
+
+  #recommendations li{
+    float:left;
+    /*width: 80%;*/
+    /*border: black solid;*/
+    margin: 0;
+    padding-right: 10px;
+  }
+
 }
 
 
@@ -11,7 +54,7 @@ nav {
   height: 100%;
   position: absolute;
   /* This trasform moves the drawer off canvas. */
-  -webkit-transform: translate(-300px, 0);
+  -webkit-transform: translate(-600px, 0);
   transform: translate(-600px, 0);
   /* Optionally, we animate the drawer. */
   transition: transform 0.3s ease;
@@ -22,6 +65,8 @@ nav.open {
 }
 
 #menu{
+  width: 40px;
+  height: 10px;
 
 }
 
@@ -34,7 +79,9 @@ nav.open {
 
 #header{
   width: 100%;
+  font-size: 15px;
 }
+
 
 #title {
   width: 100%;
@@ -53,7 +100,7 @@ nav.open {
   z-index: 1;
   width: 100%;
   height: 100%;
-  border: blue solid;
+  /*border: blue solid;*/
 }
 
 #map {
@@ -70,21 +117,30 @@ nav.open {
   position: absolute;
   left: 10px;
   border-radius: 20px;
-  border: black solid;
+  border: #828282 solid;
+  background-color: rgba(145, 145, 145, 0.86);
+  color: black; /*#ededed*/
 }
 
 #search {
   float:left;
-  /*width: 30%;*/
+  width: 100%;
+}
+
+#search-box{
+  width: 95%;
+  height: 50px;
+  border-radius: 10px;
 }
 
 #recommendations {
   float:left;
   /*width: 80%;*/
-  border: black solid;
+  /*border: black solid;*/
   padding: 10px;
-}
+  font-size: 20px;
 
+}
 
 /* Weather API Styling*/
 #weather {
@@ -95,9 +151,13 @@ nav.open {
 }
 
 #weather-app {
-    margin-right: 100px;
+    /*margin-right: 100px;*/
+    float: right;
     width: 165px;
     height: 150px;
+    z-index: 3;
+    display: block;
+    position: relative;
     border: 1px solid black;
     border-radius: 20px;
     box-shadow: 10px 10px 50px #888888;

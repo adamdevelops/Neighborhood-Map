@@ -101,11 +101,18 @@ var marker;
 function initMap() {
   console.log("Entering initMap");
 
-  var uluru = {lat: 40.715272, lng: -73.9974404}; //Location on China Town
+  var uluru = {lat: 40.710348, lng: -73.998234}; //Location on China Town
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 18,
-    center: uluru
+    zoom: 17,
+    center: uluru,
+    // mapTypeControl: false,
+    disableDefaultUI: true
   });
+
+  //If the screen-width is less than 750px, adjust the map
+  if($(document).width() <= 750) {
+        map.zoom = 16;
+    }
 
   for (i = 0; i < initialMarkers_length; i++){
     markers[i] = new google.maps.Marker({ //Bubbly Tea
@@ -268,7 +275,7 @@ var ViewModel = function(){
       drawer.classList.toggle('open');
       e.stopPropagation();
     });
-    app.addEventListener('click', function() {
+    header.addEventListener('click', function() {
       drawer.classList.remove('open');
     });
 

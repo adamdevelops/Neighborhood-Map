@@ -19,18 +19,15 @@
     </a>
 
     <div id="title">
-        <h1>What's Going Down in ChinaTown</h1>
+        <h1 id="header-title">What's Going Down in ChinaTown</h1>
       </div>
   </div>
 
   <nav id="search-menu" class="col-md-4">
-      <div id="weather-app">
-        <div id="forecast"> </div>
-      </div>
-
       <div id="search">
         <form id="form-container" class="form-container">
-            <p>Type: <input data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" /></p>
+            <h2 style="padding">Location:</h2>
+             <input id="search-box"data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" />
         </form>
       </div>
 
@@ -40,20 +37,24 @@
 
       <div id="recommendations">
 
-        recommendations area
+        <h3>Recommendations:</h3>
 
         <ul data-bind="foreach: filteredLocations">
-          <li data-bind="text: $data.title, click: $parent.selectedLocation"></li>
+          <li id="" data-bind="text: $data.title, click: $parent.selectedLocation"></li>
         </ul>
       </div>
-
   </nav>
+
 
 
     <div id="map-container" class="col-md-8">
       <div id="map">
         It seems Google Maps has ran into an error. Please try again.
       </div>
+    </div>
+
+    <div id="weather-app">
+      <div id="forecast"> </div>
     </div>
 
 </div>
