@@ -12,7 +12,7 @@ The Neighborhood Map Project is app that displays the recommended locations to v
 2. Open up the index.html.
 ``` 
 
-##Features
+## Features
 ```
 - A filterable search of locations based on the type of location such as restaurants, or sight-seeing.
 - Animated map marker when location is clicked on in the Recommendations list or on the map.
