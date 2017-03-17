@@ -26,8 +26,8 @@
   <nav id="search-menu" class="col-md-4">
       <div id="search">
         <form id="form-container" class="form-container">
-            <h2 style="padding">Location:</h2>
-             <input id="search-box"data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'" />
+            <h2 style="padding">Type:</h2>
+             <input id="search-box"data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'">
         </form>
       </div>
 
@@ -40,7 +40,7 @@
         <h3>Recommendations:</h3>
 
         <ul data-bind="foreach: filteredLocations">
-          <li id="" data-bind="text: $data.title, click: $parent.selectedLocation"></li>
+        <li id="" data-bind="text: $data.title + ' (' + $data.type + ')', click: $parent.selectedLocation"></li>
         </ul>
       </div>
   </nav>

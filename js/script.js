@@ -115,7 +115,7 @@ function initMap() {
     }
 
   for (i = 0; i < initialMarkers_length; i++){
-    markers[i] = new google.maps.Marker({ //Bubbly Tea
+    markers[i] = new google.maps.Marker({
       position: {lat: initialMarkers[i].lat, lng: initialMarkers[i].lng},
       animation: google.maps.Animation.DROP,
       map: map,
@@ -123,8 +123,10 @@ function initMap() {
       id: i
     });
 
+    var infoWindow_content = initialMarkers[i].title;
+
     markers_infowindow[i] = new google.maps.InfoWindow({
-              content: initialMarkers[i].title,
+              content: infoWindow_content,
             });
 
 
@@ -155,16 +157,6 @@ function toggleBounceInfoWindow() {
         } else {
           this.setAnimation(google.maps.Animation.BOUNCE); //Set markers animation to bounce
           markers_infowindow[this.id].open(map, this); //Open the info window for the according marker
-        }
-      }
-
-
-//Toggle the bounce animation for selected marker
-function toggleinfoWindow() {
-        if (this.getAnimation() !== null) {
-            this.setAnimation(null);
-        } else {
-            this.setAnimation(google.maps.Animation.BOUNCE);
         }
       }
 
@@ -209,7 +201,7 @@ var ViewModel = function(){
     //Store the Google Map markers for each location as a property for each location
     for (i = 0; i < initialMarkers_length; i++){
       this.locationsList()[i].marker = markers[i];
-    };
+    }
 
     console.log("index 1 with marker");
     console.log(this.locationsList()[1]);
@@ -222,19 +214,22 @@ var ViewModel = function(){
         if (clickedLocation.title == location_title){
           this.currentLocation = self.locationsList()[i];
         }
-      };
+      }
       console.log("currentLocation");
-      console.log(this.currentLocation.marker);
+      console.log(this.currentLocation);
+
+      this.currentmarker = this.currentLocation.marker;
 
       //Set selected location marker animation to Bounce and open up the InfoWindow
       //this.currentLocation.marker.setAnimation(google.maps.Animation.BOUNCE);
       //Close the infoWindow and disable bounce animation if selected location is clicked on again.
-      if (this.marker.getAnimation() !== null) {
-          this.marker.setAnimation(null);
+      if (this.currentLocation.marker.getAnimation() !== null) {
+          this.currentLocation.marker.setAnimation(null);
           markers_infowindow[this.marker.id].close(map, this); //Close the info window for the according marker
       } else {
-          this.marker.setAnimation(google.maps.Animation.BOUNCE);
-          markers_infowindow[this.marker.id].open(map, this.marker);
+          this.currentLocation.marker.setAnimation(google.maps.Animation.BOUNCE);
+          markers_infowindow[this.marker.id].open(map, this.marker); //setTimeout(function(){ myWindow.close() }, 3000);
+          setTimeout(function(){this.currentmarker.setAnimation(google.maps.Animation.DROP) }, 3000);
       }
 
     };
@@ -284,3 +279,11 @@ var ViewModel = function(){
 
 
 };
+
+
+
+// Foursquare API
+// var url = 'https://api.foursquare.com/v2/venues/search?client_id=3O2CJNQWJIU4EV0NQ3QPU2SBRW0SOQRPF4XDG5EUMS3WGNAP&v=20161016&client_secret=5FQQLNQV2LZ1HJOZZBYNPRVWLMR14ETJRGPJSYRWD3ITVQNM'+'&ll='+';
+//
+// $.getJSON(url)
+//             .done(function(data){
