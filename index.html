@@ -54,7 +54,9 @@
     </div>
 
     <div id="weather-app">
-      <div id="forecast"> </div>
+      <div id="forecast" data-bind="text: $data.apiContent">
+
+      </div>
     </div>
 
 </div>
@@ -62,7 +64,7 @@
     <!-- <script src="js/libs/bootstrap.min.js"></script> -->
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/libs/jquery.min.js"></script>
-    <script src="js/script.js"></script> <!--"http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b"-->
+    <script src="js/script_js.js"></script> <!--"http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b"-->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB546Pycrc06vZqoIGDedMeU8qxbKHgDu8&callback=initMap"></script>
     <script src="http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b&callback=initWeatherAPI"></script>
 </body>

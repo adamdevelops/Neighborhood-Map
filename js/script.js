@@ -59,35 +59,63 @@ function initWeatherAPI() {
 
   $(document).ready(function() {
 
-    //var $currentWeather = $('#weather');
-
+    // Perform an asynchronous HTTP (Ajax) request for the OpenWeather API weather data
     $.ajax({
       url: "http://api.openweathermap.org/data/2.5/weather?q=NewYork&appid=5a27d887bbdde6caf751f24ec02c5a1b&units=metric",
       type: "GET",
-      dataType: "jsonp",
-      success: function(data) {
-        console.log(data);
-        console.log(data.weather[0].main);
-        console.log(data.weather[0].main);
-        temp = Math.trunc(((data.main.temp * 9)/5) + 32);
-
+      dataType: "jsonp"
+    })
+      .done(function(data) {  //If connection is succesful then do..
+        // console.log(data);
+        // console.log(data.weather[0].main);
+        // console.log(data.weather[0].main);
+        temp = Math.trunc(((data.main.temp * 9)/5) + 32);  //Convert temperature from Celsius to Fahrenheit and truncate the value to a whole number
+        //Display the weather data in the OpenWeatherAPI Box
         $( "#forecast" ).html( "<div id='temp_display'>"
         +"<img id='icon' src ='http://openweathermap.org/img/w/"+data.weather[0].icon+".png'><div id='temp'>"+temp+"&deg;</div></div><div id='weather-title'><p>"+data.weather[0].description
         +"</p></div><div id='api-credit'>powered by OpenWeatherAPI</div>");
 
-      },
-      error: function() {
-
+      })
+      .fail(function() {  //If connection fails then display error message
         console.log("Error accessing API");
-        $( "#forecast" ).html("Error accessing API");
-
-      }
-
+        $( "#forecast" ).html("Error accessing Open Weather API");
       });
   });
 
   console.log("Exiting initWeatherAPI");
 }
+
+
+function init4SAPI(location) {
+  console.log("Entering init4SAPI");
+
+
+  console.log(location.lat);
+  console.log(location.long);
+  console.log(location.query);
+
+
+  var url = 'https://api.foursquare.com/v2/venues/search?client_id=3O2CJNQWJIU4EV0NQ3QPU2SBRW0SOQRPF4XDG5EUMS3WGNAP&v=20161016&client_secret=5FQQLNQV2LZ1HJOZZBYNPRVWLMR14ETJRGPJSYRWD3ITVQNM' +
+      '&ll=' + location.lat + ',' +
+            location.lng + '&query=' + location.title + '&limit=1';
+
+  $.getJSON(url)
+          .done(function(data){
+            console.log(data);
+            console.log(data.response);
+
+            $( "#foursquare" ).html("Location name:" + data.response.venues[0].name +
+          "<br>" + "Location id:" + data.response.venues[0].id +
+         "<br>" + "Location address:" + data.response.venues[0].location.address +
+         "<br>" + "Location formated address:" + data.response.venues[0].location.formattedAddress
+         );
+
+
+          })
+          .fail(function(){
+            $( "#foursquare" ).html("Error accessing API");
+          });
+};
 
 
 // Code for Google Maps API
@@ -279,11 +307,3 @@ var ViewModel = function(){
 
 
 };
-
-
-
-// Foursquare API
-// var url = 'https://api.foursquare.com/v2/venues/search?client_id=3O2CJNQWJIU4EV0NQ3QPU2SBRW0SOQRPF4XDG5EUMS3WGNAP&v=20161016&client_secret=5FQQLNQV2LZ1HJOZZBYNPRVWLMR14ETJRGPJSYRWD3ITVQNM'+'&ll='+';
-//
-// $.getJSON(url)
-//             .done(function(data){
