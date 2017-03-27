@@ -64,6 +64,8 @@ var initialMarkers = [
           }).done(function() {
             console.log('GetWeather request succeeded!');
           }).fail(function(jqXHR, textStatus, errorThrown) {
+            var weatherInfoString = '<br>Unable to retreive current weather forecast';
+            weatherData(weatherInfoString);
             console.log('GetWeather request failed! ' + textStatus);
           }).always(function() {
               console.log('GetWeather request ended!');
@@ -139,12 +141,11 @@ function load4SAPI(location, infowindow) {
             '<div id="location-contact"><h3>' + data.response.venues[0].contact.formattedPhone + '</h3></div>';
 
            infowindow.setContent(content);
+           infowindow.open(map, location);
             })
             .fail(function(){
-              var content = "failed"
-
-              console.log("fail");
-              return content;
+              var content = "Failed to load 4Square Loaction information";
+              infowindow.setContent(content);
             });
   }
 
@@ -155,7 +156,7 @@ function load4SAPI(location, infowindow) {
       infowindow.marker = marker;
       load4SAPI(marker, infowindow);
       //infowindow.setContent('<div>' + marker.title + '</div>');
-      infowindow.open(map, marker);
+      // infowindow.open(map, marker);
     }
   }
 
@@ -170,6 +171,11 @@ var ViewModel = function(){
     this.locationsList = ko.observableArray([]);
 
     this.searchTerm = ko.observable("");
+
+    //KO oberservables that store weather data
+    // this.weatherTemp = ko.observable('');
+    // this.weatherIcon = ko.observable('');
+    // this.weatherDesc = ko.observable('');
 
     // KO Observable that will contain with the weather app API content
     this.foreCast = ko.observable("");
@@ -204,8 +210,8 @@ var ViewModel = function(){
         }
         // Reset marker to a null animation after 1second
         setTimeout(function() {
-          marker.setAnimation(null);
-          marker_infowindow.close(map, marker);
+          marker.setAnimation(null); //User will close the infowindow instead
+          // marker_infowindow.close(map, marker);
         }, 2000);
       }
     });
@@ -217,7 +223,7 @@ var ViewModel = function(){
     //Animate marker when location is selected on the recommendations list
     this.selectedLocation = function(clickedLocation){
       var marker = clickedLocation.marker;
-
+      //Set the currentLocation observable to the clicked on location from the menu
       this.currentLocation = clickedLocation;
 
         if (marker.getAnimation() !== null) {
@@ -265,16 +271,16 @@ var ViewModel = function(){
      *
      * Improvements: Use KnockOut clickbindings instead of jQuery
      */
-    var menu = document.querySelector('#menu');
-    var app = document.querySelector('#app');
-    var drawer = document.querySelector('#search-menu');
+    var $menu = document.querySelector('#menu');
+    var $app = document.querySelector('#app');
+    var $drawer = document.querySelector('#search-menu');
 
-    menu.addEventListener('click', function(e) {
-      drawer.classList.toggle('open');
+    $menu.addEventListener('click', function(e) {
+      $drawer.classList.toggle('open');
       e.stopPropagation();
     });
     header.addEventListener('click', function() {
-      drawer.classList.remove('open');
+      $drawer.classList.remove('open');
     });
 
 
