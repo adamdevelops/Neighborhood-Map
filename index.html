@@ -8,10 +8,10 @@
 </head>
 <body>
 
-<div id="app" class="row">
+<div id="app">
 
 
-  <div id="header">
+  <header id="header">
     <a id="menu">
       <div id="menu_icon"></div>
       <div id="menu_icon"></div>
@@ -21,9 +21,9 @@
     <div id="title">
         <h1 id="header-title">What's Going Down in ChinaTown</h1>
       </div>
-  </div>
+  </header>
 
-  <nav id="search-menu" class="col-md-4">
+  <nav id="search-menu">
       <div id="search">
         <form id="form-container" class="form-container">
             <h2 style="padding">Type:</h2>
@@ -47,11 +47,10 @@
 
 
 
-    <div id="map-container" class="col-md-8">
+    <main id="map-container">
       <div id="map">
-        It seems Google Maps has ran into an error. Please try again.
       </div>
-    </div>
+    </main>
 
     <div id="weather-app">
       <!--<div id="forecast" data-bind="text: $data.apiContent">-->
@@ -66,6 +65,6 @@
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/script.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB546Pycrc06vZqoIGDedMeU8qxbKHgDu8&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB546Pycrc06vZqoIGDedMeU8qxbKHgDu8&callback=initMap" onerror="mapError()"></script>
 </body>
 </html>

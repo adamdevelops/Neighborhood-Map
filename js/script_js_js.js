@@ -64,8 +64,6 @@ var initialMarkers = [
           }).done(function() {
             console.log('GetWeather request succeeded!');
           }).fail(function(jqXHR, textStatus, errorThrown) {
-            var weatherInfoString = '<br>Unable to retreive current weather forecast';
-            weatherData(weatherInfoString);
             console.log('GetWeather request failed! ' + textStatus);
           }).always(function() {
               console.log('GetWeather request ended!');
@@ -123,12 +121,6 @@ function initMap() {
 // console.log("Exiting initMap");
 }
 
-function mapError(){
-
-	alert("Could not load Google Maps");
-  
-}
-
 
 function load4SAPI(location, infowindow) {
    // console.log("Entering init4SAPI");
@@ -142,20 +134,17 @@ function load4SAPI(location, infowindow) {
               // console.log(data);
               console.log(data.response);
 
-              //var phoneNum = (data.response.venues[0].contact.formattedPhone != 'undefined') ? data.response.venues[0].contact.formattedPhone : 'No phone number provided';
-              var phoneNum = data.response.venues[0].contact.formattedPhone || 'No phone number provided'; //Store phone number if its defined
-
               var content  = '<div id="location-name"> <h1>'+ data.response.venues[0].name + '</h1></div>'+
             '<div id="location-address"><h3>' + data.response.venues[0].location.formattedAddress + '</h3></div>' +
-            '<div id="location-contact"><h3>' + phoneNum + '</h3></div>';
+            '<div id="location-contact"><h3>' + data.response.venues[0].contact.formattedPhone + '</h3></div>';
 
            infowindow.setContent(content);
-           infowindow.open(map, location);
             })
             .fail(function(){
-              var content = 'Failed to load 4Square Loaction information';
-              infowindow.setContent(content);
-              infowindow.open(map, location);
+              var content = "failed"
+
+              console.log("fail");
+              return content;
             });
   }
 
@@ -165,11 +154,8 @@ function load4SAPI(location, infowindow) {
     if (infowindow.marker != marker) {
       infowindow.marker = marker;
       load4SAPI(marker, infowindow);
-      google.maps.event.addListener(marker_infowindow, 'closeclick', function() {
-        marker_infowindow.marker = null;
-      });
       //infowindow.setContent('<div>' + marker.title + '</div>');
-      // infowindow.open(map, marker);
+      infowindow.open(map, marker);
     }
   }
 
@@ -183,16 +169,10 @@ var ViewModel = function(){
     //KnockOut array of list of recommended locations
     this.locationsList = ko.observableArray([]);
 
-    this.searchTerm = ko.observable('');
-
-    /* Code to modify/implement later */
-    //KO oberservables that store weather data
-    // this.weatherTemp = ko.observable('');
-    // this.weatherIcon = ko.observable('');
-    // this.weatherDesc = ko.observable('');
+    this.searchTerm = ko.observable("");
 
     // KO Observable that will contain with the weather app API content
-    this.foreCast = ko.observable('');
+    this.foreCast = ko.observable("");
     // Load the weather app API content
     loadWeatherInfo(this.foreCast);
 
@@ -224,8 +204,8 @@ var ViewModel = function(){
         }
         // Reset marker to a null animation after 1second
         setTimeout(function() {
-          marker.setAnimation(null); //User will close the infowindow instead
-          // marker_infowindow.close(map, marker);
+          marker.setAnimation(null);
+          marker_infowindow.close(map, marker);
         }, 2000);
       }
     });
@@ -237,7 +217,7 @@ var ViewModel = function(){
     //Animate marker when location is selected on the recommendations list
     this.selectedLocation = function(clickedLocation){
       var marker = clickedLocation.marker;
-      //Set the currentLocation observable to the clicked on location from the menu
+
       this.currentLocation = clickedLocation;
 
         if (marker.getAnimation() !== null) {
@@ -285,16 +265,16 @@ var ViewModel = function(){
      *
      * Improvements: Use KnockOut clickbindings instead of jQuery
      */
-    var $menu = document.querySelector('#menu');
-    var $app = document.querySelector('#app');
-    var $drawer = document.querySelector('#search-menu');
+    var menu = document.querySelector('#menu');
+    var app = document.querySelector('#app');
+    var drawer = document.querySelector('#search-menu');
 
-    $menu.addEventListener('click', function(e) {
-      $drawer.classList.toggle('open');
+    menu.addEventListener('click', function(e) {
+      drawer.classList.toggle('open');
       e.stopPropagation();
     });
     header.addEventListener('click', function() {
-      $drawer.classList.remove('open');
+      drawer.classList.remove('open');
     });
 
 
