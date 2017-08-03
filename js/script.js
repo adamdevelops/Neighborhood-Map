@@ -56,7 +56,7 @@ var initialMarkers = [
               var temp = Math.trunc(((response.main.temp * 9)/5) + 32);
 
               var weatherInfoString = '<div id="temp_display">'
-               +'<img id="icon" src ="http://openweathermap.org/img/w/'+ response.weather[0].icon +'.png"><div id="temp">'+ temp +'&deg;'+'</div>'+ '</div><div id="weather-title"><p>'+response.weather[0].description
+               +'<img id="icon" src ="https://openweathermap.org/img/w/'+ response.weather[0].icon +'.png"><div id="temp">'+ temp +'&deg;'+'</div>'+ '</div><div id="weather-title"><p>'+response.weather[0].description
                +'</p></div><div id="api-credit">powered by OpenWeatherAPI</div>';
 
               weatherData(weatherInfoString);
