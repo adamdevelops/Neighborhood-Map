@@ -42,7 +42,7 @@ var initialMarkers = [
   function loadWeatherInfo(weatherData) {
           var id = '5a27d887bbdde6caf751f24ec02c5a1b';
 
-          var weatherUrl = 'http://api.openweathermap.org/data/2.5/weather?' +
+          var weatherUrl = 'https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather?' +
               'lat=40.715735' +
               '&lon=-73.997511' +
               '&appid=' + id;
@@ -126,7 +126,7 @@ function initMap() {
 function mapError(){
 
 	alert("Could not load Google Maps");
-  
+
 }
 
 
