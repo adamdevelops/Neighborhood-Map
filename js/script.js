@@ -35,6 +35,12 @@ var initialMarkers = [
       type: "noodles",
       lat: 40.7141342,
       lng: -73.9989576
+    },
+    {
+      title: "ChinaTown Ice Cream Factory",
+      type: "ice cream",
+      lat: 40.7153513,
+      lng: -73.998655
     }
 
 ];
@@ -45,18 +51,21 @@ var initialMarkers = [
           var weatherUrl = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?' +
               'lat=40.715735' +
               '&lon=-73.997511' +
+              '&units=metric'+
               '&appid=' + id;
 
           $.getJSON(weatherUrl, function(response) {
             var error = response.error;
+            var temp;
             if (error) {
               console.log(error);
             } else {
-              console.log(response.weather[0].description + "   " + Math.round(response.main.temp - 273.15) + " °C");
-              var temp = Math.trunc(((response.main.temp * 9)/5) + 32);
+              console.log(response.weather[0].description + "   " + Math.round(response.main.temp) + " °C");
+              temp = (((response.main.temp * 9)/5) + 32);
+              tempF = (Math.round(temp));
 
               var weatherInfoString = '<div id="temp_display">'
-               +'<img id="icon" src ="https://openweathermap.org/img/w/'+ response.weather[0].icon +'.png"><div id="temp">'+ temp +'&deg;'+'</div>'+ '</div><div id="weather-title"><p>'+response.weather[0].description
+               +'<img id="icon" src ="https://openweathermap.org/img/w/'+ response.weather[0].icon +'.png"><div id="temp">'+ tempF +'&deg;'+'</div>'+ '</div><div id="weather-title"><p>'+response.weather[0].description
                +'</p></div><div id="api-credit">powered by OpenWeatherAPI</div>';
 
               weatherData(weatherInfoString);
@@ -64,8 +73,6 @@ var initialMarkers = [
           }).done(function() {
             console.log('GetWeather request succeeded!');
           }).fail(function(jqXHR, textStatus, errorThrown) {
-            var weatherInfoString = '<br>Unable to retreive current weather forecast';
-            weatherData(weatherInfoString);
             console.log('GetWeather request failed! ' + textStatus);
           }).always(function() {
               console.log('GetWeather request ended!');
@@ -88,7 +95,7 @@ var marker;
 function initMap() {
   //console.log("Entering initMap");
 
-  var uluru = {lat: 40.710348, lng: -73.998234}; //Location on China Town
+  var uluru = {lat: 40.7136291, lng: -73.9974581}; //Location on China Town
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 17,
     center: uluru,
@@ -123,12 +130,6 @@ function initMap() {
 // console.log("Exiting initMap");
 }
 
-function mapError(){
-
-	alert("Could not load Google Maps");
-
-}
-
 
 function load4SAPI(location, infowindow) {
    // console.log("Entering init4SAPI");
@@ -142,20 +143,16 @@ function load4SAPI(location, infowindow) {
               // console.log(data);
               console.log(data.response);
 
-              //var phoneNum = (data.response.venues[0].contact.formattedPhone != 'undefined') ? data.response.venues[0].contact.formattedPhone : 'No phone number provided';
-              var phoneNum = data.response.venues[0].contact.formattedPhone || 'No phone number provided'; //Store phone number if its defined
-
               var content  = '<div id="location-name"> <h1>'+ data.response.venues[0].name + '</h1></div>'+
-            '<div id="location-address"><h3>' + data.response.venues[0].location.formattedAddress + '</h3></div>' +
-            '<div id="location-contact"><h3>' + phoneNum + '</h3></div>';
+            '<div id="location-address"><h3>' + data.response.venues[0].location.formattedAddress + '</h3></div>';
 
            infowindow.setContent(content);
-           infowindow.open(map, location);
             })
             .fail(function(){
-              var content = 'Failed to load 4Square Loaction information';
-              infowindow.setContent(content);
-              infowindow.open(map, location);
+              var content = "failed"
+
+              console.log("fail");
+              return content;
             });
   }
 
@@ -165,11 +162,8 @@ function load4SAPI(location, infowindow) {
     if (infowindow.marker != marker) {
       infowindow.marker = marker;
       load4SAPI(marker, infowindow);
-      google.maps.event.addListener(marker_infowindow, 'closeclick', function() {
-        marker_infowindow.marker = null;
-      });
       //infowindow.setContent('<div>' + marker.title + '</div>');
-      // infowindow.open(map, marker);
+      infowindow.open(map, marker);
     }
   }
 
@@ -180,19 +174,28 @@ var ViewModel = function(){
 
     var self = this;    //--- referencing the ViewModel itself, thus the outer this outside of the div of where we applied the 'with data-bind'
 
+    /*
+    * Open the drawer when the menu is clicked.
+    */
+
+    self.isOpen = ko.observable(false);
+
+    self.toggle = function() {
+      self.isOpen(!self.isOpen());
+    }
+
+    self.close = function() {
+      self.isOpen(false);
+    }
+
+
     //KnockOut array of list of recommended locations
     this.locationsList = ko.observableArray([]);
 
-    this.searchTerm = ko.observable('');
-
-    /* Code to modify/implement later */
-    //KO oberservables that store weather data
-    // this.weatherTemp = ko.observable('');
-    // this.weatherIcon = ko.observable('');
-    // this.weatherDesc = ko.observable('');
+    this.searchTerm = ko.observable("");
 
     // KO Observable that will contain with the weather app API content
-    this.foreCast = ko.observable('');
+    this.foreCast = ko.observable("");
     // Load the weather app API content
     loadWeatherInfo(this.foreCast);
 
@@ -224,8 +227,8 @@ var ViewModel = function(){
         }
         // Reset marker to a null animation after 1second
         setTimeout(function() {
-          marker.setAnimation(null); //User will close the infowindow instead
-          // marker_infowindow.close(map, marker);
+          marker.setAnimation(null);
+          marker_infowindow.close(map, marker);
         }, 2000);
       }
     });
@@ -237,7 +240,7 @@ var ViewModel = function(){
     //Animate marker when location is selected on the recommendations list
     this.selectedLocation = function(clickedLocation){
       var marker = clickedLocation.marker;
-      //Set the currentLocation observable to the clicked on location from the menu
+
       this.currentLocation = clickedLocation;
 
         if (marker.getAnimation() !== null) {
@@ -280,22 +283,8 @@ var ViewModel = function(){
         }
     }, self);
 
-    /*
-     * Open the drawer when the menu ison is clicked.
-     *
-     * Improvements: Use KnockOut clickbindings instead of jQuery
-     */
-    var $menu = document.querySelector('#menu');
-    var $app = document.querySelector('#app');
-    var $drawer = document.querySelector('#search-menu');
 
-    $menu.addEventListener('click', function(e) {
-      $drawer.classList.toggle('open');
-      e.stopPropagation();
-    });
-    header.addEventListener('click', function() {
-      $drawer.classList.remove('open');
-    });
+
 
 
    // console.log("Exiting ViewModel");

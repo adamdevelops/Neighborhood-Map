@@ -5,26 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Downtown in ChinaTown</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gochi+Hand" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Knewave" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Aclonica" rel="stylesheet">
+
 </head>
 <body>
 
-<div id="app">
+<div id="app" class="row">
 
 
-  <header id="header">
-    <a id="menu">
-      <div id="menu_icon"></div>
-      <div id="menu_icon"></div>
-      <div id="menu_icon"></div>
-    </a>
+      <header>
+        <a id="menu" data-bind="click: toggle">
+          <div id="menu_icon"></div>
+          <div id="menu_icon"></div>
+          <div id="menu_icon"></div>
+        </a>
 
-    <div id="title">
-        <h1 id="header-title">What's Going Down in ChinaTown</h1>
+      <div id="title" class="title-text">
+          <h1 id="header-title">What's Going Down in ChinaTown</h1>
       </div>
-  </header>
 
-  <nav id="search-menu">
-      <div id="search">
+      <!-- <div>
+        <i class="fa fa-github fa-lg footer icon" aria-hidden="true"><a href="https://github.com/adamdevelops">
+                                  GitHub</a></i>
+      </div> -->
+    </header>
+
+  <div class="row">
+
+  <nav id="search-menu" class="col-md-4" data-bind="css: {open: isOpen}">
+      <div id="search" class="title-text">
         <form id="form-container" class="form-container">
             <h2 style="padding">Type:</h2>
              <input id="search-box"data-bind="textInput: searchTerm, valueUpdate: 'afterkeydown'">
@@ -35,29 +48,36 @@
       <br>
       <br>
 
-      <div id="recommendations">
+      <div id="recommendations" class="title-text">
 
         <h3>Recommendations:</h3>
 
         <ul data-bind="foreach: filteredLocations">
-        <li id="" data-bind="text: $data.title + ' (' + $data.type + ')', click: $parent.selectedLocation"></li>
+          <li id="" data-bind="text: $data.title + ' (' + $data.type + ')', click: $parent.selectedLocation"></li>
         </ul>
       </div>
   </nav>
 
 
 
-    <main id="map-container">
+    <div id="map-container" class="col-md-8 map-responsive">
       <div id="map">
+        It seems Google Maps has ran into an error. Please try again.
       </div>
-    </main>
+    </div>
 
-    <div id="weather-app">
-      <!--<div id="forecast" data-bind="text: $data.apiContent">-->
+    <div>
+      <div id="weather-app">
+        <!--<div id="forecast" data-bind="text: $data.apiContent">-->
 
-      <div data-bind="html: foreCast"></div>
+        <div data-bind="html: foreCast"></div>
 
       </div>
+
+    </div>
+
+
+  </div>
 
 </div>
 
@@ -65,6 +85,6 @@
     <script src="js/libs/knockout-3.2.0.js"></script>
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/script.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB546Pycrc06vZqoIGDedMeU8qxbKHgDu8&callback=initMap" onerror="mapError()"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB546Pycrc06vZqoIGDedMeU8qxbKHgDu8&callback=initMap"></script>
 </body>
 </html>
