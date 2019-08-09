@@ -6,6 +6,8 @@
 
 The Neighborhood Map Project is app that displays the recommended locations to visit around an area. My app is centered around the locales in Downtown Chinatown in Mahattan, NY. This project utilizes the Google Maps API, and third party API of OpenWeather API to provide weather forecast as well as the Foursquare API to provide location details.
 
+View the live version [here](https://adamdevelops.github.io/Neighborhood-Map/).
+
 ## Steps to Run
 ```
 1. Clone or download the zip file of this repo.
